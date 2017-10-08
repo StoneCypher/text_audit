@@ -26,7 +26,9 @@
   "devDependencies": {
     "command-line-args": "^4.0.7",
     "glob": "^7.1.2",
-    "rimraf": "^2.6.1",
-    "txt_tocfill": "^0.5.0"
+    "rimraf": "^2.6.1"
+  },
+  "dependencies": {
+    "txt_tocfill": "^0.5.1"
   }
 }

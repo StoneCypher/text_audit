@@ -15,17 +15,17 @@ const claArgDefs = [
     alias        : "t", 
     type         : String, 
     multiple     : true,
-    defaultValue : 'todo,fixme,checkme' },
+    defaultValue : ['todo','fixme','checkme'] },
 
   { name         : "format",       
     alias        : "f", 
     type         : f => ['color','bw','json'].includes(f)? f : 'color',
     defaultValue : 'color' },
 
-  { name         : "skip-empties", 
-    alias        : "s", 
+  { name         : "keep-empties", 
+    alias        : "k", 
     type         : Boolean,
-    defaultValue : true },
+    defaultValue : false },
 
   { name         : "glob",         
     alias        : "g", 
@@ -44,8 +44,11 @@ const options = cmdParser(claArgDefs),
 
                   glob        : options.glob,   
                   terms       : options.terms,  
-                  skipEmpties : options.skipEmpties
+                  keepEmpties : options['keep-empties']
 
                 });
 
-console.log( format[options.format](result) );
+// console.log(JSON.stringify(options));
+console.log(JSON.stringify(result));
+
+console.log( format[options.format](result, options) );
