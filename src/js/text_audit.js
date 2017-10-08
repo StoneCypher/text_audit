@@ -15,7 +15,7 @@ const claArgDefs = [
     alias        : "t",
     type         : String,
     multiple     : true,
-    defaultValue : ['todo','fixme','checkme'] },
+    defaultValue : ['TODO','FIXME','CHECKME','TESTME','COMEBACK','BUG_MINOR','BUG_MAJOR'] },
 
   { name         : "format",
     alias        : "f",

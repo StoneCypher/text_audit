@@ -1,6 +1,6 @@
 {
   "name": "text_audit",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Audit a directory and its subdirectories for warning notes like \"todo\"",
   "main": "src/js/text_audit.js",
   "scripts": {

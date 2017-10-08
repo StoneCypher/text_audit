@@ -67,12 +67,21 @@ const colorList   = (data, options) => list(data, options, writeColorTocRow);
 
 
 
-const rollup_aggregate = data =>
-    [].concat(... data.map(d => d.terms))
-      .reduce( (acc, cur) => ((acc[cur.term] = (acc[cur.term] || 0) + cur.count ), acc), {} )
+const objectZeroFilter = obj =>
+    Object.keys(obj).reduce( (acc, cur) => ((obj[cur]? (acc[cur] = obj[cur]) : true), acc) , {} );
+
+const maybeObjectZeroFilter = (should, obj) =>
+    should? objectZeroFilter(obj) : obj;
+
+const rollup_aggregate = (data, options) =>
+    maybeObjectZeroFilter(
+    	options['remove-empties'],
+    	[].concat(... data.map(d => d.terms))
+        .reduce( (acc, cur) => ((acc[cur.term] = (acc[cur.term] || 0) + cur.count ), acc), {} )
+    );
 
 const rollup = (data, options, writer) =>
-    writer( rollup_aggregate(data) );
+    writer( rollup_aggregate(data, options) );
 
 const bwRollup    = (data, options) => rollup(data, options, writeBwRollupRow);
 const colorRollup = (data, options) => rollup(data, options, writeColorRollupRow);
