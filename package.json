@@ -1,6 +1,6 @@
 {
   "name": "text_audit",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Audit a directory and its subdirectories for warning notes like \"todo\"",
   "main": "src/js/text_audit.js",
   "scripts": {
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/StoneCypher/text_audit#readme",
   "devDependencies": {
+    "cli-color": "^1.2.0",
     "command-line-args": "^4.0.7",
     "glob": "^7.1.2",
     "rimraf": "^2.6.1"

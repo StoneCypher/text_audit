@@ -1,5 +1,6 @@
 
-const ttf = require('txt_tocfill');
+const ttf = require('txt_tocfill'),
+      clc = require('cli-color');
 
 
 
@@ -23,9 +24,15 @@ const writeBwTocRow = ({file, terms}) =>
 
 
 
+const colNum = (num,tx) => (num > 10)? (clc.red(tx||num)) : (num? (clc.yellow(tx||num)) : (clc.green(tx||num)));
+
+
+
+
+
 const writeColorTocRow = ({file, terms}) =>
 
-    `${file}\n${ttf.compute({rows: terms.map(d => d.term), rightrows: terms.map(d => d.count)}).join('\n')}`;
+    `${clc.blackBright(file)}\n${ttf.compute({rows: terms.map(d => colNum(d.count,d.term)), rightrows: terms.map(d => colNum(d.count))}).join('\n')}`;
 
 
 
