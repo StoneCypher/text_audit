@@ -1,49 +1,52 @@
 
-const fs   = require('fs'),
+const cmd   = require('commander'),
 
-      glob = require('glob');
-
-
-
-
-
-const to_lines = text => {
-
-	return text.replace(/\r\n/g, '\n')
-               .replace(/\r/g,   '\n')
-               .split('\n')
-               .filter(l => l !== '');
-
-};
+      pkg   = require('../../package.json'),
+      audit = require('./audit.js');
 
 
 
 
 
-const fromFile = fpath => 
+const termList = tl => 
 
-    ({file: fpath, lines: to_lines(`${fs.readFileSync(fpath)}`) });
-
-
-
-
-
-const checkFile = ({file, lines}, {terms}) =>
-
-    ({file, terms: terms.map(t => ({term: t, count: lines.filter(l => l.indexOf(t) !== -1).length}))});
+    tl.split(',').map(s => s.trim());
 
 
 
 
 
-const check = config => 
+cmd.version(pkg.version)
 
-  glob.sync(config.glob)
-      .map(fromFile)
-      .map(filedata => checkFile(filedata, config)); 
+   .option('-t, --terms',        
+   	       'Comma-separated list of things to find [default todo,fixme,checkme]',
+   	       termList)
+
+   .option('-f, --format',       
+   	       'Emission format (color|bw|json) [default color]',
+   	       /^(color|bw|json)$/i,
+   	       'color')
+
+   .option('-s, --skip-empties', 
+   	       'Remove empty rows from output [default true]',
+   	       /^(true|false)$/i)
+
+   .option('-g, --glob',
+   	       'Glob of files to match [default ./**/*.js]')
+
+   .parse(process.argv);
+
+ console.log(cmd);
 
 
 
 
 
-module.exports = { check };
+console.log( JSON.stringify(audit.check({
+
+  glob        : cmd.glob   || './**/*.js',
+  terms       : cmd.terms  || ['todo','fixme','checkme'],
+  format      : cmd.format || 'color',
+  skipEmpties : ( (cmd.skipEmpties) && (!([0,'0','false','f'].includes(cmd.skipEmpties))) )
+
+})) );
