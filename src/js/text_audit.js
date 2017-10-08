@@ -20,10 +20,15 @@ const claArgDefs = [
   { name         : "format",
     alias        : "f",
     type         : f => ['colorRollup','bwRollup','colorList','bwList','json'].includes(f)? f : 'colorRollup',
-    defaultValue : 'color' },
+    defaultValue : 'colorRollup' },
 
   { name         : "remove-empties",
     alias        : "r",
+    type         : Boolean,
+    defaultValue : false },
+
+  { name         : "quiet-when-clean",  // todo
+    alias        : "q",
     type         : Boolean,
     defaultValue : false },
 
