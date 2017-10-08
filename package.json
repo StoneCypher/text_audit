@@ -1,17 +1,10 @@
 {
   "name": "text_audit",
-  "version": "0.1.1",
+  "version": "0.5.0",
   "description": "Audit a directory and its subdirectories for warning notes like \"todo\"",
-  "main": "dist/text_audit.es5.js",
+  "main": "src/js/text_audit.js",
   "scripts": {
-    "clean": "rimraf build -f && rimraf dist -f",
-    "babel": "babel src/ -d build/",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "rename": "node -e \"require('fs').renameSync('./build/text_audit.js', './build/text_audit.es5.js');\"",
-    "pack": "browserify -r ./build/text_audit.es5.js:text_audit -o build/text_audit.es5.cjs.js",
-    "build": "npm run clean && npm run babel && npm run rename && npm run pack",
-    "postinstall": "npm run build",
-    "prepublish": "npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -31,15 +24,9 @@
   },
   "homepage": "https://github.com/StoneCypher/text_audit#readme",
   "devDependencies": {
-    "ava": "^0.19.1",
-    "ava-spec": "^1.1.0",
-    "babel-cli": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
-    "browserify": "^14.3.0",
-    "chalk": "^2.1.0",
+    "command-line-args": "^4.0.7",
     "glob": "^7.1.2",
-    "jgrep": "^1.0.4",
     "rimraf": "^2.6.1",
-    "txt_tocfill": "^0.6.0"
+    "txt_tocfill": "^0.5.0"
   }
 }

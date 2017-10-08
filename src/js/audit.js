@@ -41,9 +41,12 @@ const checkFile = ({file, lines}, {terms}) =>
 
 
 
+const a_concat = AofA => [].concat(... AofA),
+      uniq     = Arr  => [... new Set(Arr)];
+
 const check = config => 
 
-  glob.sync(config.glob)
+  uniq(a_concat(config.glob.map(g => glob.sync(g))))
       .map(fromFile)
       .map(filedata => checkFile(filedata, config)); 
 

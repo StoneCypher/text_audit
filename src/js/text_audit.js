@@ -1,52 +1,51 @@
 
-const cmd   = require('commander'),
+const cmdParser = require('command-line-args'),
 
-      pkg   = require('../../package.json'),
-      audit = require('./audit.js');
-
-
-
-
-
-const termList = tl => 
-
-    tl.split(',').map(s => s.trim());
+      pkg       = require('../../package.json'),
+      audit     = require('./audit.js'),
+      format    = require('./format.js');
 
 
 
 
 
-cmd.version(pkg.version)
+const claArgDefs = [
 
-   .option('-t, --terms',        
-   	       'Comma-separated list of things to find [default todo,fixme,checkme]',
-   	       termList)
+  { name         : "terms",        
+    alias        : "t", 
+    type         : String, 
+    multiple     : true,
+    defaultValue : 'todo,fixme,checkme' },
 
-   .option('-f, --format',       
-   	       'Emission format (color|bw|json) [default color]',
-   	       /^(color|bw|json)$/i,
-   	       'color')
+  { name         : "format",       
+    alias        : "f", 
+    type         : f => ['color','bw','json'].includes(f)? f : 'color',
+    defaultValue : 'color' },
 
-   .option('-s, --skip-empties', 
-   	       'Remove empty rows from output [default true]',
-   	       /^(true|false)$/i)
+  { name         : "skip-empties", 
+    alias        : "s", 
+    type         : Boolean,
+    defaultValue : true },
 
-   .option('-g, --glob',
-   	       'Glob of files to match [default ./**/*.js]')
+  { name         : "glob",         
+    alias        : "g", 
+    type         : String, 
+    multiple     : true,
+    defaultValue : ['./src/**/*.js'] }
 
-   .parse(process.argv);
-
- console.log(cmd);
-
-
-
+];
 
 
-console.log( JSON.stringify(audit.check({
 
-  glob        : cmd.glob   || './**/*.js',
-  terms       : cmd.terms  || ['todo','fixme','checkme'],
-  format      : cmd.format || 'color',
-  skipEmpties : ( (cmd.skipEmpties) && (!([0,'0','false','f'].includes(cmd.skipEmpties))) )
 
-})) );
+
+const options = cmdParser(claArgDefs),
+      result  = audit.check({
+
+                  glob        : options.glob,   
+                  terms       : options.terms,  
+                  skipEmpties : options.skipEmpties
+
+                });
+
+console.log( format[options.format](result) );
