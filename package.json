@@ -1,8 +1,9 @@
 {
   "name": "text_audit",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Audit a directory and its subdirectories for warning notes like \"todo\"",
   "main": "src/js/text_audit.js",
+  "bin": { "text_audit": "./src/js/text_audit.js" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

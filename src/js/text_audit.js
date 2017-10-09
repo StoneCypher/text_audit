@@ -1,3 +1,8 @@
+#!/usr/bin/env node
+
+
+
+
 
 const cmdParser = require('command-line-args'),
 
