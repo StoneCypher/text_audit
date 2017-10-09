@@ -1,6 +1,6 @@
 {
   "name": "text_audit",
-  "version": "0.9.0",
+  "version": "0.9.2",
   "description": "Audit a directory and its subdirectories for warning notes like \"todo\"",
   "main": "src/js/text_audit.js",
   "bin": { "text_audit": "./src/js/text_audit.js" },
@@ -24,13 +24,10 @@
     "url": "https://github.com/StoneCypher/text_audit/issues"
   },
   "homepage": "https://github.com/StoneCypher/text_audit#readme",
-  "devDependencies": {
+  "dependencies": {
     "cli-color": "^1.2.0",
     "command-line-args": "^4.0.7",
     "glob": "^7.1.2",
-    "rimraf": "^2.6.1"
-  },
-  "dependencies": {
     "txt_tocfill": "^0.5.1"
   }
 }
