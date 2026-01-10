@@ -27,7 +27,7 @@
   "dependencies": {
     "cli-color": "^1.2.0",
     "command-line-args": "^4.0.7",
-    "glob": "^7.1.2",
+    "glob": "^9.0.0",
     "txt_tocfill": "^0.5.1"
   }
 }
